@@ -1,0 +1,12 @@
+﻿<Project>
+
+    <ItemGroup>
+        <Content Include=".dockerignore" />
+        <Content Include=".gitignore" />
+        <Content Include="Dockerfile" />
+        <Content Include="README.md" />
+        <Content Include="routes.conf" />
+        <Content Include="start.sh" />
+    </ItemGroup>
+
+</Project>

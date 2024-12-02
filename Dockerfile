@@ -1,41 +1,19 @@
-ARG PARENT_VERSION=latest-22
-ARG PORT=3000
-ARG PORT_DEBUG=9229
 
-FROM defradigital/node-development:${PARENT_VERSION} AS development
-ARG PARENT_VERSION
-LABEL uk.gov.defra.ffc.parent-image=defradigital/node-development:${PARENT_VERSION}
+FROM grafana/otel-lgtm AS cdms-grafana-dashboard
 
-ARG PORT
-ARG PORT_DEBUG
-ENV PORT=${PORT}
-EXPOSE ${PORT} ${PORT_DEBUG}
+WORKDIR "/"
 
-COPY --chown=node:node package*.json ./
-RUN npm install
-COPY --chown=node:node . .
-RUN npm run build
-
-CMD [ "npm", "run", "docker:dev" ]
-
-FROM defradigital/node:${PARENT_VERSION} AS production
-ARG PARENT_VERSION
-LABEL uk.gov.defra.ffc.parent-image=defradigital/node:${PARENT_VERSION}
-
-# Add curl to template.
-# CDP PLATFORM HEALTHCHECK REQUIREMENT
-USER root
-RUN apk update && \
-    apk add curl
-USER node
-
-COPY --from=development /home/node/package*.json ./
-COPY --from=development /home/node/.server ./.server/
-
-RUN npm ci --omit=dev
-
-ARG PORT
+ARG PORT=8085
 ENV PORT=${PORT}
 EXPOSE ${PORT}
 
-CMD [ "node", "." ]
+# CDP PLATFORM HEALTHCHECK REQUIREMENT
+RUN dnf install curl -y --allowerasing
+
+# Required to route UI and data feed ports to grafana
+RUN dnf install nginx -y --allowerasing
+COPY routes.conf /routes.conf
+
+COPY --chmod=0755 start.sh /start.sh
+
+CMD ["./start.sh"]
