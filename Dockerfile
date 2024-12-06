@@ -22,5 +22,5 @@ CMD ["./start.sh"]
 
 RUN install -Dv /dev/null /otel-lgtm/grafana/data/log/grafana.log
 RUN ln -s /otel-lgtm/grafana/data/log/grafana.log /grafana.log
-RUN chmod drwxr-xr-x /otel-lgtm/grafana/data/log/grafana.log
-RUN chmod drwxr-xr-x /grafana.log
+RUN chmod 0555 /otel-lgtm/grafana/data/log/grafana.log
+RUN chmod 0555 /grafana.log
