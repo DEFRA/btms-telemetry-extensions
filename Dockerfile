@@ -19,8 +19,3 @@ COPY routes.conf /otel-lgtm/routes.conf
 COPY --chmod=0755 start.sh /start.sh
 
 CMD ["./start.sh"]
-
-RUN install -Dv /dev/null /otel-lgtm/grafana/data/log/grafana.log
-RUN ln -s /otel-lgtm/grafana/data/log/grafana.log /grafana.log
-RUN chmod 0555 /otel-lgtm/grafana/data/log/grafana.log
-RUN chmod 0555 /grafana.log
