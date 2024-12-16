@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: "BTMS Dashboard provider"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: false
+    options:
+      path:  /otel-lgtm/btms-grafana-dashboards
+      foldersFromFilesStructure: true

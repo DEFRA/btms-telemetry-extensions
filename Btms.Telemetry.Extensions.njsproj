@@ -4,6 +4,8 @@
         <Content Include=".dockerignore" />
         <Content Include=".gitignore" />
         <Content Include="Dockerfile" />
+        <Content Include="grafana-dashboards\btms-provider.yml" />
+        <Content Include="grafana-dashboards\dashboards\btms-dashboard-grafana.json" />
         <Content Include="README.md" />
         <Content Include="routes.conf" />
         <Content Include="start.sh" />

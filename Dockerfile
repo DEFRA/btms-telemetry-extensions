@@ -15,6 +15,10 @@ RUN dnf install curl -y --allowerasing
 RUN dnf install nginx -y --allowerasing
 COPY routes.conf /routes.conf
 
+RUN mkdir otel-lgtm/btms-grafana-dashboards
+COPY ./grafana-dashboards/dashboards/* otel-lgtm/btms-grafana-dashboards
+COPY ./grafana-dashboards/btms-provider.yml otel-lgtm/grafana/conf/provisioning/dashboards/
+
 COPY --chmod=0755 start.sh /start.sh
 
 CMD ["./start.sh"]
